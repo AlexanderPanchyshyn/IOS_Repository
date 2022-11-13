@@ -20,12 +20,15 @@ class ViewController: UIViewController {
     }
     
     @IBAction func tapCalculate(_ sender: Any) {
+        
         if (validInput()) {
             let checkedWorkingsForPercent = workings.replacingOccurrences(of: "%", with: "*0.01")
             let expression = NSExpression(format: workings)
             let result = expression.expressionValue(with: nil, context: nil) as! Double
             let resultString = formatResult(result: result)
             calcResults.text = resultString
+            workings = resultString
+            calcWorkings.text = ""
         } else {
             let alert = UIAlertController(
                 title: "Invalid",
@@ -76,6 +79,9 @@ class ViewController: UIViewController {
             return true
         }
         if (char == "+") {
+            return true
+        }
+        if (char == "%") {
             return true
         }
         
