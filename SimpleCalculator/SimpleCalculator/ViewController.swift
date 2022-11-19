@@ -19,11 +19,32 @@ class ViewController: UIViewController {
         clearAll()
     }
     
+    func calculatePow(work: String) -> String {
+        let workArray = work.split(separator: "^")
+        let calc = pow(Double(workArray[0])!, Double(workArray[1])!)
+        let result = String(calc)
+        return result
+    }
+    
+    func calculateLog(work: String) -> String {
+        let workArray = work.split(separator: "log ")
+        let calc = log(Double(workArray[0])!)/log(10)
+        let result = String(calc)
+        return result
+    }
+    
     @IBAction func tapCalculate(_ sender: Any) {
-        
         if (validInput()) {
-            let checkedWorkingsForPercent = workings.replacingOccurrences(of: "%", with: "*0.01")
-            let expression = NSExpression(format: workings)
+            var checkedWorkingsForPercent = workings.replacingOccurrences(of: "%", with: "*0.01*")
+            
+            if (checkedWorkingsForPercent.contains("^")) {
+                checkedWorkingsForPercent = calculatePow(work: checkedWorkingsForPercent)
+            }
+            if (checkedWorkingsForPercent.contains("log ")) {
+                checkedWorkingsForPercent = calculateLog(work: checkedWorkingsForPercent)
+            }
+            
+            let expression = NSExpression(format: checkedWorkingsForPercent)
             let result = expression.expressionValue(with: nil, context: nil) as! Double
             let resultString = formatResult(result: result)
             calcResults.text = resultString
@@ -92,7 +113,7 @@ class ViewController: UIViewController {
         if (result.truncatingRemainder(dividingBy: 1) == 0) {
             return String(format: "%.0f", result)
         } else {
-            return String(format: "%.2f", result)
+            return String(format: "%.5f", result)
         }
     }
     
@@ -113,6 +134,16 @@ class ViewController: UIViewController {
     func addToWorkings(value: String) {
         workings = workings + value
         calcWorkings.text = workings
+    }
+    
+    @IBAction func tapLog(_ sender: Any) {
+        addToWorkings(value: "log ")
+        isDot = false
+    }
+    
+    @IBAction func tapPow(_ sender: Any) {
+        addToWorkings(value: "^")
+        isDot = false
     }
     
     @IBAction func tapPercent(_ sender: Any) {
