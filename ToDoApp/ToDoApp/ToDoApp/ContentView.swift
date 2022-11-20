@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var isDoneFirst: Bool = false
-    @State var isDoneSecond: Bool = false
-    @State var isDoneThird: Bool = false
+    @State var isDone: Bool = false
     
     struct Task : Identifiable {
         let id = UUID()
@@ -37,19 +35,9 @@ struct ContentView: View {
                                     Label("Delete", systemImage: "trash.fill")
                                 }
                             }
-                        if (task.title == "Feed your dog!") {
-                            Toggle(isOn: $isDoneFirst, label: {
-                                Text("")
-                            })
-                        } else if (task.title == "Create a ToDo App") {
-                            Toggle(isOn: $isDoneSecond, label: {
-                                Text("")
-                            })
-                        } else {
-                            Toggle(isOn: $isDoneThird, label: {
-                                Text("")
-                            })
-                        }
+                        Toggle(isOn: $isDone, label: {
+                            Text("")
+                        })
                     }
                 }
             }
