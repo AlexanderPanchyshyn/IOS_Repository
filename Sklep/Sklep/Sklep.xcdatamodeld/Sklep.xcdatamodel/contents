@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21512" systemVersion="21G217" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Kategoria" representedClassName="Kategoria" syncable="YES" codeGenerationType="class">
+        <attribute name="opis" optional="YES" attributeType="String"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="kategories" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Produkty" inverseName="prods" inverseEntity="Produkty"/>
+    </entity>
+    <entity name="Produkty" representedClassName="Produkty" syncable="YES" codeGenerationType="class">
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="prods" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Kategoria" inverseName="kategories" inverseEntity="Kategoria"/>
+    </entity>
+</model>
