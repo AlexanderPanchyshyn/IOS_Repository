@@ -27,7 +27,7 @@ extension Project4App {
     
     func loadFromAPI() {
         let context = persistenceController.container.viewContext
-        let serverURL = "https://ee1f9c582778.ngrok.io/kategoria"
+        let serverURL = "https://c360-195-82-45-217.eu.ngrok.io"
         
         let url = URL(string: serverURL)
         let request = URLRequest(url: url!)
