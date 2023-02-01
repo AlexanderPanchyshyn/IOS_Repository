@@ -9,8 +9,9 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var calcWorkings: UILabel!
-    @IBOutlet weak var calcResults: UILabel!
+    @IBOutlet weak var calcWorkings: UILabel?
+    @IBOutlet weak var calcResults: UILabel?
+    
     
     var workings:String = ""
     var isDot:Bool = false
@@ -33,7 +34,7 @@ class ViewController: UIViewController {
         return result
     }
     
-    @IBAction func tapCalculate(_ sender: Any) {
+    func calculateAll() -> Void {
         if (validInput()) {
             var checkedWorkingsForPercent = workings.replacingOccurrences(of: "%", with: "*0.01*")
             
@@ -47,9 +48,9 @@ class ViewController: UIViewController {
             let expression = NSExpression(format: checkedWorkingsForPercent)
             let result = expression.expressionValue(with: nil, context: nil) as! Double
             let resultString = formatResult(result: result)
-            calcResults.text = resultString
+            calcResults?.text = resultString
             workings = resultString
-            calcWorkings.text = ""
+            calcWorkings?.text = ""
         } else {
             let alert = UIAlertController(
                 title: "Invalid",
@@ -59,6 +60,10 @@ class ViewController: UIViewController {
             alert.addAction(UIAlertAction(title: "Okay", style: .default))
             self.present(alert, animated: true, completion: nil)
         }
+    }
+    
+    @IBAction func tapCalculate(_ sender: Any) {
+        calculateAll()
     }
     
     func validInput() -> Bool {
@@ -113,27 +118,27 @@ class ViewController: UIViewController {
         if (result.truncatingRemainder(dividingBy: 1) == 0) {
             return String(format: "%.0f", result)
         } else {
-            return String(format: "%.5f", result)
+            return String(format: "%.2f", result)
         }
     }
     
     func clearAll() {
         workings = ""
-        calcWorkings.text = ""
-        calcResults.text = ""
+        calcWorkings?.text = ""
+        calcResults?.text = ""
         isDot = false
     }
     
     @IBAction func tapDelete(_ sender: Any) {
         if(!workings.isEmpty) {
             workings.removeLast()
-            calcWorkings.text = workings
+            calcWorkings?.text = workings
         }
     }
     
     func addToWorkings(value: String) {
         workings = workings + value
-        calcWorkings.text = workings
+        calcWorkings?.text = workings
     }
     
     @IBAction func tapLog(_ sender: Any) {
